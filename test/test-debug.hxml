@@ -1,0 +1,73 @@
+##
+# :INFO:
+# Should be executed from project root like this:
+# $ haxe test/test.hxml
+##
+
+-cmd mkdir -p build
+
+##
+# Build
+##
+
+-cmd echo "[Building CPP]"
+--next test/hxml/cpp.hxml
+-debug
+
+-cmd echo "[Building NEKO]"
+--next test/hxml/neko.hxml
+-debug
+
+-cmd echo "[Building JAVASCRIPT]"
+--next test/hxml/javascript.hxml
+-debug
+
+-cmd echo "[Building PHP]"
+--next test/hxml/php.hxml
+-debug
+
+-cmd echo "[Building SWF]"
+--next test/hxml/swf.hxml
+-debug
+
+-cmd echo "[Building JAVA]"
+--next test/hxml/java.hxml
+-debug
+
+-cmd echo "[Building C#]"
+--next test/hxml/cs.hxml
+-debug
+
+-cmd echo "[Building PYTHON]"
+--next test/hxml/python.hxml
+-debug
+
+##
+# Run
+##
+-cmd echo "\n"
+--next
+
+-cmd echo "\n[Running CPP]"
+-cmd chmod +x ./build/cpp/HUnit-debug && ./build/cpp/HUnit-debug
+
+-cmd echo "\n[Running NEKO]"
+-cmd neko ./build/HUnit.n
+
+-cmd echo "\n[Running JAVASCRIPT]"
+-cmd nodejs ./build/HUnit.js
+
+-cmd echo "\n[Running PHP]"
+-cmd php build/php/index.php
+
+-cmd echo "\n[Running SWF]"
+-cmd if [ -z "$SKIP_SWF" ]; then fdb ./build/HUnit.swf 2> /dev/null && cat ~/.macromedia/Flash_Player/Logs/flashlog.txt; else  echo "SKIP"; fi
+
+-cmd echo "\n[Running JAVA]"
+-cmd chmod +x ./build/java/HUnit-Debug.jar && ./build/java/HUnit-Debug.jar
+
+-cmd echo "\n[Running C#]"
+-cmd mono ./build/cs/bin/HUnit-Debug.exe
+
+-cmd echo "\n[Running PYTHON]"
+-cmd python3 ./build/HUnit.py

@@ -1,0 +1,12 @@
+{
+    "name"         : "exception",
+    "url"          : "https://github.com/RealyUniqueName/Haxe-Exception",
+    "license"      : "MIT",
+    "tags"         : ["exception"],
+    "description"  : "Base class for exceptions",
+    "version"      : "0.1.0",
+    "releasenote"  : "Initial release",
+    "classPath"    : "src",
+    "contributors" : ["RealyUniqueName"],
+    "dependencies" : {}
+}

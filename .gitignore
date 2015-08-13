@@ -1,0 +1,7 @@
+dump/*
+*.sublime-*
+build/*
+*.n
+*.hx.tmp
+.idea
+Test.hx
