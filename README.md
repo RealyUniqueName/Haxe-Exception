@@ -49,7 +49,7 @@ static public function wrap (e:Dynamic, ?pos:PosInfos) : Exception ;
  *
  * Usefull to remove common items of all call stacks on some platforms.
  * E.g. neko always adds `Called from SomeClass::$statics line 1` to call stack.
-  *You can remove such items in this function.
+ * You can remove such items in this function.
  */
 static public dynamic function processCallStackOnCreation (stack:Array<StackItem>) : Array<StackItem> ;
 
