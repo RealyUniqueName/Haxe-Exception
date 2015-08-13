@@ -8,7 +8,7 @@ using Type;
 using exception.StackTools;
 
 
-#if php
+#if (php || python)
 typedef Exception = HException;
 #end
 
@@ -16,10 +16,10 @@ typedef Exception = HException;
  * Base class for exceptions
  *
  */
-#if php
-private class HException
+#if (php || python)
+private class HException #if python extends python.Exceptions.Exception #end
 #else
-class Exception #if python extends python.Exceptions.BaseException #end
+class Exception
 #end
 {
     /** Exception message */
