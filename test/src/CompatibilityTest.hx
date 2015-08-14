@@ -9,7 +9,7 @@ import hunit.TestCase;
  * Tests compatibility of `Exception` with different targets.
  *
  */
-class GeneralTest extends TestCase
+class CompatibilityTest extends TestCase
 {
 
     /**
@@ -36,4 +36,4 @@ class GeneralTest extends TestCase
         assert.success();
     }
 
-}//class GeneralTest
+}//class CompatibilityTest
