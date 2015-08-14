@@ -3,9 +3,9 @@
     "url"          : "https://github.com/RealyUniqueName/Haxe-Exception",
     "license"      : "MIT",
     "tags"         : ["exception"],
-    "description"  : "Do not interfere python native Exception",
-    "version"      : "0.1.1",
-    "releasenote"  : "Initial release",
+    "description"  : "Base class for exceptions",
+    "version"      : "0.1.2",
+    "releasenote"  : "Do not interfere python native Exception",
     "classPath"    : "src",
     "contributors" : ["RealyUniqueName"],
     "dependencies" : {}
