@@ -1,2 +1,3 @@
 test/hxml/common.hxml
+-debug
 -neko build/HUnit.n
