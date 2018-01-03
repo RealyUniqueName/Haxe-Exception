@@ -1,16 +1,12 @@
-package ;
+package cases;
 
 import haxe.CallStack;
-import hunit.TestCase;
-
-
-
 
 /**
  * Test `Exception.wrap()`
  *
  */
-class WrapTest extends TestCase
+class TestWrap extends BaseCase
 {
 
     /**
@@ -24,7 +20,7 @@ class WrapTest extends TestCase
         } catch (e:Dynamic) {
             var wrapped = Exception.wrap(e);
 
-            assert.equal(e, wrapped.message);
+            assert.equals(e, wrapped.message);
         }
     }
 
@@ -38,7 +34,7 @@ class WrapTest extends TestCase
         var original = new Exception('Hello');
         var wrapped  = Exception.wrap(original);
 
-        assert.equal(original, wrapped);
+        assert.equals(original, wrapped);
     }
 
 }//class WrapTest

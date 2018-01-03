@@ -1,5 +1,5 @@
 -cp src
--lib hunit
--main HUnit
+-cp test/src
+-lib utest
+-main Test
 -D EXCEPTION_STACK
--D HUNIT_TEST_DIR=test/src

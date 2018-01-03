@@ -71,7 +71,7 @@ class Exception
         #if python super(); #end
 
         this.message = message;
-        this.pos     = pos;
+        this.pos     = (pos == null ? throw "position cannot be null" : pos);
 
         #if (debug || EXCEPTION_STACK)
             this.stack = buildStack(CallStack.callStack());

@@ -1,6 +1,7 @@
 dump/*
 *.sublime-*
 build/*
+bin/*
 *.n
 *.hx.tmp
 .idea

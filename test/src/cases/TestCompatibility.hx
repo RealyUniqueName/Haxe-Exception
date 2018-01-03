@@ -1,15 +1,10 @@
-package;
-
-import hunit.TestCase;
-
-
-
+package cases;
 
 /**
  * Tests compatibility of `Exception` with different targets.
  *
  */
-class CompatibilityTest extends TestCase
+class TestCompatibility extends BaseCase
 {
 
     /**
@@ -33,7 +28,7 @@ class CompatibilityTest extends TestCase
         var e = new Exception('Hello, world');
 
         //all trials passed
-        assert.success();
+        assert.pass();
     }
 
 }//class CompatibilityTest

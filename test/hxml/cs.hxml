@@ -1,2 +1,2 @@
 test/hxml/common.hxml
--cs build/cs
+-cs bin/cs

@@ -1,2 +1,2 @@
 test/hxml/common.hxml
--neko build/HUnit.n
+-neko bin/test.n

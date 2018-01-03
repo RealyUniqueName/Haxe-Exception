@@ -21,7 +21,7 @@ class StackTools
      * @param pos Truncate till this position
      * @param fromTop Truncate from the topmost call till `pos` (true) or from the most recent call till `pos` (false).
      */
-    static public #if !python inline #end function truncate (stack:Array<StackItem>, pos:PosInfos, fromTop:Bool = false) : Array<StackItem>
+    static public function truncate (stack:Array<StackItem>, pos:PosInfos, fromTop:Bool = false) : Array<StackItem>
     {
         #if (!debug && !EXCEPTION_STACK)
             return stack;

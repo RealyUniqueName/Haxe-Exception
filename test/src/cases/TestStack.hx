@@ -1,13 +1,10 @@
-package ;
-
-import hunit.TestCase;
-
+package cases;
 
 /**
  * Test call stack manipulations
  *
  */
-class StackTest extends TestCase
+class TestStack extends BaseCase
 {
 
     /**
@@ -21,13 +18,13 @@ class StackTest extends TestCase
 
         //target platform does not provide call stack
         if (stackSize == 0) {
-            assert.success();
+            assert.pass();
             return;
         }
 
         e.truncateStack(1);
 
-        assert.equal(stackSize - 1, e.stack.length);
+        assert.equals(stackSize - 1, e.stack.length);
     }
 
 }//class StackTest
