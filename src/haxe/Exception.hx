@@ -18,7 +18,7 @@ class Exception {
 	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
 	 */
 	@:noUsing
-	static public inline function wrap (e:Dynamic):Exception {
+	static public function wrap (e:Dynamic):Exception {
 		return Std.is(e, Exception) ? e : new Exception(Std.string(e));
 	}
 
@@ -29,7 +29,7 @@ class Exception {
 		//remove stack entries related to a line where `new Stack()` was called
 		#if neko
 		stack = (stack:Array<StackItem>).slice(3);
-		#else
+		#elseif !(interp || cs || php)
 		(stack:Array<StackItem>).shift();
 		#end
 	}

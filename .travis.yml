@@ -17,12 +17,21 @@ install:
   - haxelib run travix install
 
 script:
+  - haxelib run travix interp
+  - echo
   - haxelib run travix neko
+  - echo
   - haxelib run travix python
+  - echo
   - haxelib run travix node
+  - echo
   - haxelib run travix java
+  - echo
   - if ! [ "$TRAVIS_HAXE_VERSION" == "3.2.1" ]; then haxelib run travix cpp; fi
+  - echo
   - haxelib run travix cs
+  - echo
   - haxelib run travix php
+  - echo
   #Invalid lua setup on OSX. See https://github.com/back2dos/travix/issues/78
   - if [ `uname` = "Linux" ] && ! [ "$TRAVIS_HAXE_VERSION" == "3.2.1" ]; then haxelib run travix lua; fi;
