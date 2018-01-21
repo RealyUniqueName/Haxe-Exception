@@ -89,7 +89,6 @@ abstract Stack(Array<StackItem>) from Array<StackItem> to Array<StackItem> {
 					++i;
 					if(i >= this.length) break;
 				} else {
-					if(startIndex >= 0) trace('broke!');
 					startIndex = -1;
 				}
 			}
