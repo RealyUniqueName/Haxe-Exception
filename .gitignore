@@ -5,5 +5,4 @@ bin/*
 *.n
 *.hx.tmp
 .idea
-Test.hx
 *.zip
