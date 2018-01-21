@@ -17,13 +17,14 @@ install:
   - haxelib run travix install
 
 script:
-  - haxelib run travix interp
+  - if [ "$TRAVIS_HAXE_VERSION" == "development" ]; then haxelib run travix interp; fi
   - haxelib run travix neko
   - haxelib run travix python
   - haxelib run travix node
   - haxelib run travix java
   - if ! [ "$TRAVIS_HAXE_VERSION" == "3.2.1" ]; then haxelib run travix cpp; fi
-  - haxelib run travix cs
-  - haxelib run travix php
+  # Travix executes tests without --debug for c#, which leads to losing line numbers
+  # - haxelib run travix cs
+  - if [ "$TRAVIS_HAXE_VERSION" == "development" ]; then haxelib run travix php; fi
   #Invalid lua setup on OSX. See https://github.com/back2dos/travix/issues/78
   - if [ `uname` = "Linux" ] && ! [ "$TRAVIS_HAXE_VERSION" == "3.2.1" ]; then haxelib run travix lua; fi;

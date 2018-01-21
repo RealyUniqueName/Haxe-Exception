@@ -27,7 +27,7 @@ class Exception {
 		this.previous = previous;
 		stack = new Stack();
 		//remove stack entries related to a line where `new Stack()` was called
-		#if neko
+		#if (neko || lua)
 		stack = (stack:Array<StackItem>).slice(3);
 		#elseif (cs || java)
 		stack = (stack:Array<StackItem>).slice(2);

@@ -3,4 +3,3 @@
 -lib utest
 -D eval-stack
 -main Test
--debug
