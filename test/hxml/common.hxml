@@ -1,5 +1,0 @@
--cp src
--cp test/src
--lib utest
--main Test
--D EXCEPTION_STACK

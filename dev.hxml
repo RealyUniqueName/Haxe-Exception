@@ -1,3 +1,9 @@
-test/hxml/common.hxml
+-cp src
+-cp test
+-lib utest
+-lib safety:git:https://github.com/RealyUniqueName/Safety.git
+-main Test
+-D SAFETY=src,test
 -debug
--neko build/HUnit.n
+-neko bin/test.n
+# -js bin/test.js

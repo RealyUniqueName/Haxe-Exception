@@ -1,81 +1,113 @@
 Exception
 =========
-`Exception` is the base class for your exceptions.
-In addition to standard exception call stack `Exception` provides information about position where it was created in Haxe source code.
-This feature can be handy when platform does not provide any useful information in call stack (like python or php targets in release mode).
+`haxe.Exception` is the base class for your exceptions.
 
 Usage
 --------
 Creating your own exceptions:
 ```haxe
-class TerribleErrorException extends Exception {}
+class TerribleErrorException extends haxe.Exception {}
 
 throw new TerribleErrorException('OMG!');
 ```
 Wrapping third-party exceptions:
 ```haxe
 try {
-    throw 'Terrible error!';
+	throw 'Terrible error!';
 } catch (e:Dynamic) {
-    //this new exception will point to the original exception call stack.
-    throw Exception.wrap(e);
+	throw haxe.Exception.wrap(e);
 }
 ```
+Rethrowing exceptions:
+```haxe
+import haxe.Exception;
 
-Enabling/Disabling call stack manipulations
--------
-Call stack of `Exception` is calculated only in debug mode or if `-D EXCEPTION_STACK` compiler flag is specified.
-In release mode without `-D EXCEPTION_STACK` you will only get information about position where exception was created in addition to standard platform specific exception stack.
+class Test {
+	static function fail() throw new Exception('OMG!');
 
+	static function rethrow() {
+		try {
+			fail();
+		} catch(e:Exception) {
+			throw new Exception('Rethrown', e);
+		}
+	}
+
+	static function doStuff() {
+		rethrow();
+	}
+
+	static public function main() {
+		try {
+			doStuff();
+		} catch(e:Exception) {
+			trace(e);
+		}
+	}
+}
+```
+That second exception will look like this when stringified:
+```
+Test.hx:22: Exception: OMG!
+Stack:
+Called from Test::fail line 4
+Called from Test::rethrow line 8
+
+Next Exception: Rethrown
+Stack:
+Called from Test::rethrow line 10
+Called from Test::doStuff line 15
+Called from Test::main line 20
+Called from StringBuf::$statics line 1
+```
 
 API
 -------
 ```haxe
-/** Exception message */
-public var message (default,null) : String;
-/** Position where this exception was created */
-public var pos (default,null) : PosInfos;
-/** Call stack from the topmost call to the exception creation position */
-public var stack (default,null) : Array<StackItem>;
+class Exception {
+	/** Message of this exception. */
+	public var message(default,null):String;
+	/** Call stack of the line where this exception was created. */
+	public var stack(default,null):Stack;
+	/** Previously caught exception. */
+	public var previous(default,null):Null<Exception>;
+	/**
+	 *  Creates an instance of `Exception` using `e` as message.
+	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
+	 */
+	static public inline function wrap (e:Dynamic):Exception;
+	/**
+	 *  String representation of this exception.
+	 *  Includes message, stack and the previous exception (if set).
+	 */
+	public function toString():String;
+}
 
 /**
- * Creates `Exception` instance using `e` as message
+ *  Call stack for exceptions
  */
-static public function wrap (e:Dynamic, ?pos:PosInfos) : Exception ;
-
-/**
- * Handle call stack of all created exceptions.
- * By default does nothing.
- *
- * Usefull to remove common items of all call stacks on some platforms.
- * E.g. neko always adds `Called from SomeClass::$statics line 1` to call stack.
- * You can remove such items in this function.
- */
-static public dynamic function processCallStackOnCreation (stack:Array<StackItem>) : Array<StackItem> ;
-
-/**
- * Constructor.
- *
- * Exception's call stack will be truncated from the most recent call till the `pos`.
- * If you will not specify `pos` it will be set to the line where exception was created.
- */
-public function new (message:String, ?pos:PosInfos) : Void ;
-
-/**
- * Truncate call stack of this exception from the most recent call
- * till the `pos` position and/or by `count` items.
- */
-public function truncateStack (pos:PosInfos = null, count:Int = 0) : Void ;
-
-/**
- * Get call stack of this exception as string
- */
-public function stringStack () : String ;
-
-/**
- * Get string representation of this exception
- */
-public function toString () : String ;
+@:forward(length,copy)
+abstract Stack(Array<StackItem>) from Array<StackItem> to Array<StackItem> {
+	/**
+	 *  Get current call stack.
+	 */
+	public inline function new();
+	/**
+	 *  Returns string representation of this call stack.
+	 */
+	public inline function toString():String;
+	/**
+	 *  Iterator to be able to iterate over items of this stack.
+	 */
+	public inline function iterator():StackIterator<StackItem>;
+	/**
+	 *  Array access for reading arbitrary items of this stack.
+	 */
+	@:arrayAccess inline function get(index:Int):StackItem;
+	/**
+	 *  Returns a range of entries of current stack from the beginning to the the common part of this and `stack`.
+	 */
+	public function subtract(stack:Stack):Stack;
 ```
 ------
 Happy throwing!

@@ -4,8 +4,8 @@
     "license"      : "MIT",
     "tags"         : ["exception"],
     "description"  : "Base class for exceptions",
-    "version"      : "0.1.4",
-    "releasenote"  : "Make sure nobody pass `null` for position in exception constructor. ",
+    "version"      : "1.0.0",
+    "releasenote"  : "New API and implementation. Completely rewritten.",
     "classPath"    : "src",
     "contributors" : ["RealyUniqueName"],
     "dependencies" : {}
