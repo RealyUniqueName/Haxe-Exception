@@ -29,7 +29,7 @@ class Exception {
 		//remove stack entries related to a line where `new Stack()` was called
 		#if (neko || lua)
 		stack = (stack:Array<StackItem>).slice(3);
-		#elseif (cs || java)
+		#elseif (cs || (java && debug))
 		stack = (stack:Array<StackItem>).slice(2);
 		#elseif !interp
 		(stack:Array<StackItem>).shift();
