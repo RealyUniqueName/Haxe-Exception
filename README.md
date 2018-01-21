@@ -65,6 +65,7 @@ Called from StringBuf::$statics line 1
 
 API
 -------
+Module `haxe.Exception`:
 ```haxe
 class Exception {
 	/** Message of this exception. */
@@ -110,6 +111,7 @@ abstract Stack(Array<StackItem>) from Array<StackItem> to Array<StackItem> {
 	 *  Returns a range of entries of current stack from the beginning to the the common part of this and `stack`.
 	 */
 	public function subtract(stack:Stack):Stack;
+}
 ```
 ------
 Happy throwing!
