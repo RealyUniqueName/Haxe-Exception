@@ -6,7 +6,7 @@ import haxe.Exception;
 class TestStack extends BaseCase {
 	public function testSubtract() {
 		var e = deeperStack();
-		var result = new Exception('error', e).stack.subtract(e.stack);
+		var result = e.stack.subtract(new Exception('error', e).stack);
 		Assert.equals(2, result.length);
 	}
 
