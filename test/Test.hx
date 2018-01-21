@@ -1,11 +1,25 @@
-import utest.ui.Report;
+import haxe.Exception;
 
 class Test {
+	static function fail() throw new Exception('OMG!');
+
+	static function rethrow() {
+		try {
+			fail();
+		} catch(e:Exception) {
+			throw new Exception('Rethrown', e);
+		}
+	}
+
+	static function doStuff() {
+		rethrow();
+	}
+
 	static public function main() {
-		var runner = new utest.Runner();
-		Report.create(runner);
-		runner.addCases('cases');
-		runner.run();
+		try {
+			doStuff();
+		} catch(e:Exception) {
+			trace(e);
+		}
 	}
 }
-

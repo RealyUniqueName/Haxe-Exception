@@ -29,7 +29,9 @@ class Exception {
 		//remove stack entries related to a line where `new Stack()` was called
 		#if neko
 		stack = (stack:Array<StackItem>).slice(3);
-		#elseif !(interp || cs || php)
+		#elseif (cs || java)
+		stack = (stack:Array<StackItem>).slice(2);
+		#elseif !interp
 		(stack:Array<StackItem>).shift();
 		#end
 	}

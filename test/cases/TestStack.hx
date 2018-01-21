@@ -5,12 +5,12 @@ import haxe.Exception;
 
 class TestStack extends BaseCase {
 	public function testSubtract() {
-		var stack = deeperStack();
-		var result = stack.subtract(new Stack());
+		var e = deeperStack();
+		var result = new Exception('error', e).stack.subtract(e.stack);
 		Assert.equals(2, result.length);
 	}
 
-	function deeperStack():Stack {
-		return new Stack();
+	function deeperStack():Exception {
+		return new Exception('error');
 	}
 }
