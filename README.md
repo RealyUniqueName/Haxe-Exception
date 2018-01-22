@@ -1,6 +1,6 @@
 Exception
 =========
-[![TravisCI Build Status](https://travis-ci.org/RealyUniqueName/Haxe-Exception.svg?branch=master)](https://github.com/RealyUniqueName/Haxe-Exception)
+[![TravisCI Build Status](https://travis-ci.org/RealyUniqueName/Haxe-Exception.svg?branch=master)](https://travis-ci.org/RealyUniqueName/Haxe-Exception)
 
 `haxe.Exception` is the base class for your exceptions.
 
