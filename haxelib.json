@@ -4,8 +4,8 @@
     "license"      : "MIT",
     "tags"         : ["exception"],
     "description"  : "Base class for exceptions",
-    "version"      : "1.0.0",
-    "releasenote"  : "New API and implementation. Completely rewritten.",
+    "version"      : "1.0.1",
+    "releasenote"  : "Minor fix for preview versions of Haxe 4.0.0",
     "classPath"    : "src",
     "contributors" : ["RealyUniqueName"],
     "dependencies" : {}
