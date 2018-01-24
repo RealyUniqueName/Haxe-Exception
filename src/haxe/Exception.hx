@@ -108,25 +108,28 @@ abstract Stack(Array<StackItem>) from Array<StackItem> to Array<StackItem> {
 	}
 
 	static function equalItems(item1:Null<StackItem>, item2:Null<StackItem>):Bool {
-		return Type.enumEq(item1, item2);
+		#if (haxe_ver < '4.0.0')
 		/**
-		 * TODO: This should be un-commented upon 4.0.0 release
+		 * TODO: Remove this #if-branch upon 4.0.0 release
 		 */
-		// return switch([item1, item2]) {
-		// 	case [null, null]: true;
-		// 	case [CFunction, CFunction]: true;
-		// 	case [Module(m1), Module(m2)]: m1 == m2;
-		// 	#if (haxe_ver >= '4.0.0')
-		// 	case [FilePos(item1, file1, line1, col1), FilePos(item2, file2, line2, col2)]:
-		// 		file1 == file2 && line1 == line2 && col1 == col2 && equalItems(item1, item2);
-		// 	#else
-		// 	case [FilePos(item1, file1, line1), FilePos(item2, file2, line2)]:
-		// 		file1 == file2 && line1 == line2 && equalItems(item1, item2);
-		// 	#end
-		// 	case [Method(class1, method1), Method(class2, method2)]: class1 == class2 && method1 == method2;
-		// 	case [LocalFunction(v1), LocalFunction(v2)]: v1 == v2;
-		// 	case _: false;
-		// }
+		return Type.enumEq(item1, item2);
+		#else
+		return switch([item1, item2]) {
+			case [null, null]: true;
+			case [CFunction, CFunction]: true;
+			case [Module(m1), Module(m2)]: m1 == m2;
+			#if (haxe_ver >= '4.0.0')
+			case [FilePos(item1, file1, line1, col1), FilePos(item2, file2, line2, col2)]:
+				file1 == file2 && line1 == line2 && col1 == col2 && equalItems(item1, item2);
+			#else
+			case [FilePos(item1, file1, line1), FilePos(item2, file2, line2)]:
+				file1 == file2 && line1 == line2 && equalItems(item1, item2);
+			#end
+			case [Method(class1, method1), Method(class2, method2)]: class1 == class2 && method1 == method2;
+			case [LocalFunction(v1), LocalFunction(v2)]: v1 == v2;
+			case _: false;
+		}
+		#end
 	}
 }
 
