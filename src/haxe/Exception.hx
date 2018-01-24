@@ -16,13 +16,14 @@ class Exception {
 	/**
 	 *  Creates an instance of `Exception` using `e` as message.
 	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
+	 *
 	 */
 	@:noUsing
-	static public function wrap (e:Dynamic):Exception {
+	static public function wrap (e:Dynamic, exceptionStack:Array<StackItem> = null):Exception {
 		return Std.is(e, Exception) ? e : new Exception(Std.string(e));
 	}
 
-	public function new (message:String = '', ?previous:Exception) {
+	public function new (message:String = '', previous:Exception = null) {
 		this.message = message;
 		this.previous = previous;
 		stack = new Stack();
@@ -54,6 +55,14 @@ class Exception {
 			e = e.previous;
 		}
 		return result;
+	}
+
+	/**
+	 *  Replace call stack stored in this exception
+	 */
+	public function setStack(stack:Array<StackItem>):Exception {
+		this.stack = stack;
+		return this;
 	}
 }
 
@@ -109,9 +118,7 @@ abstract Stack(Array<StackItem>) from Array<StackItem> to Array<StackItem> {
 
 	static function equalItems(item1:Null<StackItem>, item2:Null<StackItem>):Bool {
 		#if (haxe_ver < '4.0.0')
-		/**
-		 * TODO: Remove this #if-branch upon 4.0.0 release
-		 */
+		// TODO: Remove this #if-branch upon 4.0.0 release
 		return Type.enumEq(item1, item2);
 		#else
 		return switch([item1, item2]) {

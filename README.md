@@ -13,10 +13,14 @@ throw new TerribleErrorException('OMG!');
 ```
 Wrapping third-party exceptions:
 ```haxe
+import haxe.Exception;
+
 try {
 	throw 'Terrible error!';
 } catch (e:Dynamic) {
-	throw haxe.Exception.wrap(e);
+	throw Exception.wrap(e);
+	//or if you want to keep original exception stack
+	throw Exception.wrap(e).setStack(haxe.CallStack.exceptionStack());
 }
 ```
 Rethrowing exceptions:
