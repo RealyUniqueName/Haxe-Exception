@@ -16,11 +16,20 @@ class Exception {
 	/**
 	 *  Creates an instance of `Exception` using `e` as message.
 	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
-	 *
 	 */
 	@:noUsing
 	static public function wrap (e:Dynamic, exceptionStack:Array<StackItem> = null):Exception {
 		return Std.is(e, Exception) ? e : new Exception(Std.string(e));
+	}
+
+	/**
+	 *  Creates an instance of `Exception` using `e` as message
+	 *  AND sets the stack of created exception to `haxe.CallStack.exceptionStack()`.
+	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
+	 */
+	@:noUsing
+	static public inline function wrapWithStack (e:Dynamic):Exception {
+		return wrap(e).setStack(CallStack.exceptionStack());
 	}
 
 	public function new (message:String = '', previous:Exception = null) {
