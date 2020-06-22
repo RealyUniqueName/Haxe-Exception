@@ -1,38 +1,36 @@
-package haxe;
-
 import haxe.CallStack;
 
 /**
  * Base class for exceptions
  */
-class Exception {
+class HaxeException {
 	/** Message of this exception. */
 	public var message(default,null):String;
 	/** Call stack of the line where this exception was created. */
 	public var stack(default,null):Stack;
 	/** Previously caught exception. */
-	public var previous(default,null):Null<Exception>;
+	public var previous(default,null):Null<HaxeException>;
 
 	/**
-	 *  Creates an instance of `Exception` using `e` as message.
-	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
+	 *  Creates an instance of `HaxeException` using `e` as message.
+	 *  If `e` is already an instance of `HaxeException` then `e` is returned as-is.
 	 */
 	@:noUsing
-	static public function wrap (e:Dynamic, exceptionStack:Array<StackItem> = null):Exception {
-		return Std.is(e, Exception) ? e : new Exception(Std.string(e));
+	static public function wrap (e:Dynamic, exceptionStack:Array<StackItem> = null):HaxeException {
+		return Std.is(e, HaxeException) ? e : new HaxeException(Std.string(e));
 	}
 
 	/**
-	 *  Creates an instance of `Exception` using `e` as message
+	 *  Creates an instance of `HaxeException` using `e` as message
 	 *  AND sets the stack of created exception to `haxe.CallStack.exceptionStack()`.
-	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
+	 *  If `e` is already an instance of `HaxeException` then `e` is returned as-is.
 	 */
 	@:noUsing
-	static public inline function wrapWithStack (e:Dynamic):Exception {
+	static public inline function wrapWithStack (e:Dynamic):HaxeException {
 		return wrap(e).setStack(CallStack.exceptionStack());
 	}
 
-	public function new (message:String = '', previous:Exception = null) {
+	public function new (message:String = '', previous:HaxeException = null) {
 		this.message = message;
 		this.previous = previous;
 		stack = new Stack();
@@ -52,8 +50,8 @@ class Exception {
 	 */
 	public function toString():String {
 		var result = '';
-		var e:Null<Exception> = this;
-		var prev:Null<Exception> = null;
+		var e:Null<HaxeException> = this;
+		var prev:Null<HaxeException> = null;
 		while(e != null) {
 			if(prev == null) {
 				result = 'Exception: ${e.message}\nStack:${e.stack}' + result;
@@ -69,7 +67,7 @@ class Exception {
 	/**
 	 *  Replace call stack stored in this exception
 	 */
-	public function setStack(stack:Array<StackItem>):Exception {
+	public function setStack(stack:Array<StackItem>):HaxeException {
 		this.stack = stack;
 		return this;
 	}

@@ -1,19 +1,26 @@
 Exception [![TravisCI Build Status](https://travis-ci.org/RealyUniqueName/Haxe-Exception.svg?branch=master)](https://travis-ci.org/RealyUniqueName/Haxe-Exception)
 =========
 
-`haxe.Exception` is the base class for your exceptions.
+`HaxeException` is the base class for your exceptions.
+
+**DEPRECATION NOTICE**
+
+As of Haxe 4.1 standard library contains its own `haxe.Exception` type, which should be used instead of this library.
+See https://haxe.org/manual/expression-throw.html#since-haxe-4.1.0 and https://haxe.org/manual/expression-try-catch.html#since-haxe-4.1
+
+**END OF DEPRECATION NOTICE**
 
 Usage
 --------
 Creating your own exceptions:
 ```haxe
-class TerribleErrorException extends haxe.Exception {}
+class TerribleErrorException extends HaxeException {}
 
 throw new TerribleErrorException('OMG!');
 ```
 Wrapping third-party exceptions:
 ```haxe
-import haxe.Exception;
+import HaxeException;
 
 try {
 	throw 'Terrible error!';
@@ -25,16 +32,14 @@ try {
 ```
 Rethrowing exceptions:
 ```haxe
-import haxe.Exception;
-
 class Test {
-	static function fail() throw new Exception('OMG!');
+	static function fail() throw new HaxeException('OMG!');
 
 	static function rethrow() {
 		try {
 			fail();
-		} catch(e:Exception) {
-			throw new Exception('Rethrown', e);
+		} catch(e:HaxeException) {
+			throw new HaxeException('Rethrown', e);
 		}
 	}
 
@@ -45,7 +50,7 @@ class Test {
 	static public function main() {
 		try {
 			doStuff();
-		} catch(e:Exception) {
+		} catch(e:HaxeException) {
 			trace(e);
 		}
 	}
@@ -68,20 +73,20 @@ Called from StringBuf::$statics line 1
 
 API
 -------
-Module `haxe.Exception`:
+Module `HaxeException`:
 ```haxe
-class Exception {
+class HaxeException {
 	/** Message of this exception. */
 	public var message(default,null):String;
 	/** Call stack of the line where this exception was created. */
 	public var stack(default,null):Stack;
 	/** Previously caught exception. */
-	public var previous(default,null):Null<Exception>;
+	public var previous(default,null):Null<HaxeException>;
 	/**
-	 *  Creates an instance of `Exception` using `e` as message.
-	 *  If `e` is already an instance of `Exception` then `e` is returned as-is.
+	 *  Creates an instance of `HaxeException` using `e` as message.
+	 *  If `e` is already an instance of `HaxeException` then `e` is returned as-is.
 	 */
-	static public inline function wrap (e:Dynamic):Exception;
+	static public inline function wrap (e:Dynamic):HaxeException;
 	/**
 	 *  String representation of this exception.
 	 *  Includes message, stack and the previous exception (if set).
